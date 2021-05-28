@@ -35,7 +35,7 @@ def __parseDocument(args: Namespace) -> None:
     elif extension == ".doc" or extension == ".docx":
         text_data = DocParser.extract_text_from_file(path_to_file)
     else:
-        warn(msg=f'Unknown file extension. Please check the extension is correct!')
+        warn(msg='Unknown file extension. Please check the extension is correct!')
         return
 
     __writeOutResults(path_to_output_file, text_data)

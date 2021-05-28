@@ -9,5 +9,5 @@ __pycache__/
 .pytest_cache/
 
 # Test results
-Results/
+Test/Results/
 Test/TestFiles/
