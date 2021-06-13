@@ -1,11 +1,9 @@
-from typing import Dict
 from json import dump
+from typing import Dict
 from pathlib import Path
-from logging import info, warn
 from argparse import ArgumentParser, Namespace
 
-from Parsers.PdfParser import PdfParser
-from Parsers.DocParser import DocParser
+from Parsers.ParserManager import ParserManager
 
 
 def __writeOutResults(output_dir: str, data: Dict) -> None:
@@ -22,24 +20,9 @@ def __writeOutResults(output_dir: str, data: Dict) -> None:
         file.close()
 
 
-def __parseDocument(args: Namespace) -> None:
-    info(msg='[+]\tStarting parsing document process...')
-
-    path_to_file = args.f
-    path_to_output_file = args.o
-
-    extension = Path(path_to_file).suffix
-
-    if extension == ".pdf":
-        text_data = PdfParser.extract_text_from_file(path_to_file)
-    elif extension == ".doc" or extension == ".docx":
-        text_data = DocParser.extract_text_from_file(path_to_file)
-    else:
-        warn(msg='Unknown file extension. Please check the extension is correct!')
-        return
-
-    __writeOutResults(path_to_output_file, text_data)
-    info(msg='[+]\tThe scraping process has been done!')
+def __launchParsingDocuments(args: Namespace) -> None:
+    text_data = ParserManager.parseDocument(path_to_file=args.f)
+    __writeOutResults(output_dir=args.o, data=text_data)
 
 
 if __name__ == '__main__':
@@ -65,5 +48,4 @@ if __name__ == '__main__':
         default=str(Path() / 'Results')
     )
 
-    arguments = argumentParser.parse_args()
-    __parseDocument(args=arguments)
+    __launchParsingDocuments(argumentParser.parse_args())
