@@ -1,4 +1,7 @@
+from logging import exception
 from flask import Flask, request, abort
+
+from Parsers.ParserManager import ParserManager
 
 
 app = Flask(__name__)
@@ -12,16 +15,34 @@ def indexPage():
 
 @app.route('/webpage_parsing', methods=['POST'])
 def launchWebPageParsing():
+
+    def _getWebPageLink() -> str:
+        try:
+            return json_data.get('link')
+        except KeyError as e:
+            exception(msg=f'Failed to get link field from request... {e}')
+            abort(400)
+
     if request.method == 'POST':
-        pass
+        json_data = request.get_json()
+        return ParserManager.parseWebPage(link=_getWebPageLink())
 
     abort(405)
 
 
 @app.route('/documents_parsing', methods=['POST'])
 def launchDocumentParsing():
+
+    def _getDocumentFile() -> str:
+        try:
+            return json_data.get('link')
+        except KeyError as e:
+            exception(msg=f'Failed to get document file path from request... {e}')
+            abort(400)
+
     if request.method == 'POST':
-        pass
+        json_data = request.get_json()
+        return ParserManager.parseDocument(path_to_file=_getDocumentFile())
 
     abort(405)
 
