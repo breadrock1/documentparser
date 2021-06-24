@@ -1,23 +1,25 @@
-import json
-
-from typing import Dict, Union
 from flask import Flask, request, abort
 
 
 app = Flask(__name__)
 
 
-@app.route('/', methods=['GET'])
-@app.route('/index', methods=['GET'])
+@app.route('/', methods=['GET', 'POST'])
+@app.route('/index', methods=['GET', 'POST'])
 def indexPage():
-    if request.method == 'GET':
-        return {}
+    return {}
+
+
+@app.route('/webpage_parsing', methods=['POST'])
+def launchWebPageParsing():
+    if request.method == 'POST':
+        pass
 
     abort(405)
 
 
 @app.route('/documents_parsing', methods=['POST'])
-def launchFullScraping():
+def launchDocumentParsing():
     if request.method == 'POST':
         pass
 
