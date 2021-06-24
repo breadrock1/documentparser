@@ -2,8 +2,8 @@ from pathlib import Path
 from typing import Any, Dict
 from logging import info, warning
 
-from Parsers.DocParser import DocParser
-from Parsers.PdfParser import PdfParser
+from Parsers.DocumentParser.DocParser import DocParser
+from Parsers.DocumentParser.PdfParser import PdfParser
 
 
 class ParserManager(object):
