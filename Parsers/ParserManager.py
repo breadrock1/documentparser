@@ -27,3 +27,11 @@ class ParserManager(object):
         info(msg='[+]\tThe scraping process has been done!')
 
         return text_data
+
+    @staticmethod
+    def parseWebPage(link: str) -> Dict[str, Any]:
+        info(msg='[+]\tStarting parsing document process...')
+
+        info(msg='[+]\tThe scraping process has been done!')
+
+        return {}
