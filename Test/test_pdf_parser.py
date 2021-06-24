@@ -1,5 +1,5 @@
 from pathlib import Path
-from Parsers.PdfParser import PdfParser
+from Parsers.DocumentParser.PdfParser import PdfParser
 
 
 def test_pdf_parser():
