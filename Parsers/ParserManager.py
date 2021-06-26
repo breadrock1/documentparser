@@ -25,9 +25,9 @@ class ParserManager(object):
         extension = Path(path_to_file).suffix
 
         if extension == ".pdf":
-            text_data = PdfParser.extract_text_from_file(path_to_file)
+            text_data = PdfParser.extract_text_from_file(file_path=path_to_file)
         elif extension == ".doc" or extension == ".docx":
-            text_data = DocParser.extract_text_from_file(path_to_file)
+            text_data = DocParser.extract_text_from_file(file_path=path_to_file)
         else:
             warning(msg='Unknown file extension. Please check the extension is correct!')
             return {}
