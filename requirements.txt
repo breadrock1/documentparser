@@ -1,2 +1,4 @@
 docx2txt~=0.8
 pdfminer~=20191125
+requests~=2.25.1
+beautifulsoup4~=4.9.3
