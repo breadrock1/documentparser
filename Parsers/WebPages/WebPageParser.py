@@ -5,18 +5,11 @@ from logging import exception, info
 
 
 class WebPageParser(object):
-    def __init__(self):
-        self.parsed_data = {}
-
-    def __parse_html_data(self, html: bytes) -> str:
-        soup = BeautifulSoup(html)
-        return ''.join([repr(string) for string in soup.stripped_strings])
-
-    # TODO: Need test this method to get request with ssl-cert
-    def __get_html_data(self, link: str) -> bytes or None:
+    @staticmethod
+    def __send_get_request(url: str):
         try:
             response = get(
-                url=link,
+                url=url,
                 cert=('/Path/To/File.key', '/Path/to/File.perm'),
                 allow_redirects=True
             )
@@ -27,22 +20,11 @@ class WebPageParser(object):
         if response.status_code != 200:
             return None
 
-        return response.content
+    @staticmethod
+    def extract_text_from_webpage(url_address: str) -> Dict[str, str or Dict]:
+        html = WebPageParser.__send_get_request(url=url_address)
 
-    def get_parsed_data(self) -> Dict[str, str or Dict]:
-        return self.parsed_data
+        soup = BeautifulSoup(html)
+        test = ''.join([repr(string) for string in soup.stripped_strings])
 
-    def scrape(self, link: str) -> None:
-
-        info(msg='[*]\tStart parsing web pages process...', level=0)
-
-        html = self.__get_html_data(link=link)
-
-        if not html:
-            return
-
-        self.parsed_data.update(
-            self.__parse_html_data(html=html)
-        )
-
-        info(msg='[+] The parsing web page has been done!', level=0)
+        return {}
