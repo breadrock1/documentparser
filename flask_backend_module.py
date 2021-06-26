@@ -30,7 +30,8 @@ def launchWebPageParsing():
     abort(405)
 
 
-@app.route('/documents_parsing', methods=['POST'])
+# TODO: Need add ability to load files by POST method request
+@app.route('/documents_parsing', methods=['GET', 'POST'])
 def launchDocumentParsing():
 
     def _getDocumentFile() -> str:
@@ -40,7 +41,10 @@ def launchDocumentParsing():
             exception(msg=f'Failed to get document file path from request... {e}')
             abort(400)
 
-    if request.method == 'POST':
+    if request.method == 'GET':
+        return {}
+
+    elif request.method == 'POST':
         json_data = request.get_json()
         return ParserManager.parseDocument(path_to_file=_getDocumentFile())
 
