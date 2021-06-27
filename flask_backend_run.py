@@ -1,3 +1,4 @@
+import json
 from logging import exception
 from flask import Flask, request, abort
 
@@ -5,6 +6,14 @@ from Parsers.ParserManager import ParserManager
 
 
 app = Flask(__name__)
+
+
+def __getValueByKeyFromJson(json_data: json, key: str) -> str:
+    try:
+        return json_data.get(key)
+    except KeyError as e:
+        exception(msg=f'Failed to get link field from request... {e}')
+        abort(400)
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -15,17 +24,11 @@ def indexPage():
 
 @app.route('/webpage_parsing', methods=['POST'])
 def launchWebPageParsing():
-
-    def _getWebPageLink() -> str:
-        try:
-            return json_data.get('link')
-        except KeyError as e:
-            exception(msg=f'Failed to get link field from request... {e}')
-            abort(400)
-
     if request.method == 'POST':
         json_data = request.get_json()
-        return ParserManager.parseWebPage(link=_getWebPageLink())
+        link = __getValueByKeyFromJson(json_data=json_data, key='link')
+
+        return ParserManager.parseWebPage(link=link)
 
     abort(405)
 
@@ -33,20 +36,14 @@ def launchWebPageParsing():
 # TODO: Need add ability to load files by POST method request
 @app.route('/documents_parsing', methods=['GET', 'POST'])
 def launchDocumentParsing():
-
-    def _getDocumentFile() -> str:
-        try:
-            return json_data.get('link')
-        except KeyError as e:
-            exception(msg=f'Failed to get document file path from request... {e}')
-            abort(400)
-
     if request.method == 'GET':
         return {}
 
     elif request.method == 'POST':
         json_data = request.get_json()
-        return ParserManager.parseDocument(path_to_file=_getDocumentFile())
+        file_path = __getValueByKeyFromJson(json_data=json_data, key='file_path')
+
+        return ParserManager.parseDocument(path_to_file=file_path)
 
     abort(405)
 
