@@ -1,9 +1,9 @@
 from pathlib import Path
-from Parsers.DocumentParser.DocParser import DocParser
+from Parsers.Documents.DocParser import DocParser
 
 
 def test_doc_parser():
-    docParser = DocParser()
     path_to_file = (Path() / 'Test' / 'TestFiles' / 'test_doc_file.doc').absolute()
+    docParser = DocParser(file_path=path_to_file)
 
-    assert docParser.extract_text_from_file(path_to_file)
+    assert docParser.extract_text_from_file()
