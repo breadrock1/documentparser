@@ -6,8 +6,8 @@ from logging import exception
 
 
 class WebPageParser(object):
-    def __init__(self):
-        pass
+    def __init__(self, url_address: str):
+        self.url_address = url_address
 
     def __write_dom_object_to_file(self, content: Optional[bytes]) -> str:
 
@@ -23,10 +23,10 @@ class WebPageParser(object):
         return file_name
 
     # TODO: How include ssl-cert??
-    def __send_get_request(self, url: str) -> Response or None:
+    def __send_get_request(self) -> Response or None:
         try:
             response = get(
-                url=url,
+                url=self.url_address,
                 allow_redirects=True,
                 verify=False
             )
@@ -39,8 +39,8 @@ class WebPageParser(object):
 
         return response.content
 
-    def extract_text_from_webpage(self, url_address: str) -> Dict[str, str or Dict]:
-        response = self.__send_get_request(url=url_address)
+    def extract_text_from_webpage(self) -> Dict[str, str or Dict]:
+        response = self.__send_get_request()
         html_file_path = self.__write_dom_object_to_file(content=response)
 
         soup = BeautifulSoup(html_file_path)

@@ -5,11 +5,16 @@ from logging import exception
 
 
 class DocParser(object):
-    @staticmethod
-    def extract_text_from_file(file_path: str) -> Dict[str, str or Dict]:
+    def __init__(self, file_path: str):
+        self.file_path = file_path
+
+    def __extract_data(self) -> str:
         try:
-            return {'doc_file': docx2txt.process(file_path)}
+            return docx2txt.process(self.file_path)
 
         except Exception as e:
             exception(msg=f'Failed while parsing Doc-file: {e}')
-            return {'doc_file': ''}
+            return ''
+
+    def extract_text_from_file(self) -> Dict[str, str or Dict]:
+        return {'doc_file': self.__extract_data()}

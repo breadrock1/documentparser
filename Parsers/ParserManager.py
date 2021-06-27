@@ -12,7 +12,8 @@ class ParserManager(object):
     def parseWebpage(link_to_webpage: str) -> Dict[str, Any]:
         info(msg='[+]\tStarting parsing webpage process...')
 
-        text_data = WebPageParser.extract_text_from_webpage(url_address=link_to_webpage)
+        webPageParser = WebPageParser(url_address=link_to_webpage)
+        text_data = webPageParser.extract_text_from_webpage()
 
         info(msg='[+]\tThe scraping process has been done!')
 
@@ -25,9 +26,13 @@ class ParserManager(object):
         extension = Path(path_to_file).suffix
 
         if extension == ".pdf":
-            text_data = PdfParser.extract_text_from_file(file_path=path_to_file)
+            pdfParser = PdfParser(file_path=path_to_file)
+            text_data = pdfParser.extract_text_from_file()
+
         elif extension == ".doc" or extension == ".docx":
-            text_data = DocParser.extract_text_from_file(file_path=path_to_file)
+            docParser = DocParser(file_path=path_to_file)
+            text_data = docParser.extract_text_from_file()
+
         else:
             warning(msg='Unknown file extension. Please check the extension is correct!')
             return {}

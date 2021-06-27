@@ -10,8 +10,10 @@ from pdfminer.pdfinterp import PDFResourceManager
 
 
 class PdfParser(object):
-    @staticmethod
-    def extract_text_from_file(file_path: str) -> Dict[str, str or Dict]:
+    def __init__(self, file_path: str):
+        self.file_path = file_path
+
+    def __extract_data(self) -> str:
         fake_file_handle = io.StringIO()
         resource_manager = PDFResourceManager()
 
@@ -21,15 +23,18 @@ class PdfParser(object):
 
         except Exception as e:
             exception(msg=f'Failed while trying init Converters objects: {e}')
-            return {'pdf_file': 'text'}
+            return ''
 
-        with open(file_path, 'rb') as file:
+        with open(self.file_path, 'rb') as file:
             [page_interpreter.process_page(page) for page in
-                PDFPage.get_pages(file, caching=True, check_extractable=True)]
+            PDFPage.get_pages(file, caching=True, check_extractable=True)]
 
             text = fake_file_handle.getvalue()
 
         converter.close()
         fake_file_handle.close()
 
-        return {'pdf_file': text}
+        return text
+
+    def extract_text_from_file(self) -> Dict[str, str or Dict]:
+        return {'pdf_file': self.__extract_data()}
