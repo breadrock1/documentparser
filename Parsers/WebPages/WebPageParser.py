@@ -41,11 +41,9 @@ class WebPageParser(object):
 
     def extract_text_from_webpage(self, url_address: str) -> Dict[str, str or Dict]:
         response = self.__send_get_request(url=url_address)
-
         html_file_path = self.__write_dom_object_to_file(content=response)
 
         soup = BeautifulSoup(html_file_path)
-        BeautifulSoup()
         test = ''.join([repr(string) for string in soup.stripped_strings])
 
         return {'webpage': test}
