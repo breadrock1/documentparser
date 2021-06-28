@@ -16,5 +16,5 @@ class DocParser(object):
             exception(msg=f'Failed while parsing Doc-file: {e}')
             return ''
 
-    def extract_text_from_file(self) -> Dict[str, str or Dict]:
-        return {'doc_file': self.__extract_data()}
+    def extract_text_from_file(self) -> str:
+        return self.__extract_data()

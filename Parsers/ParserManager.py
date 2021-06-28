@@ -9,6 +9,11 @@ from Parsers.WebPages.WebPageParser import WebPageParser
 
 class ParserManager(object):
     @staticmethod
+    def parseExtractedTextData(extracted_data: str) -> Dict[str, Any]:
+        # TODO: realize this method
+        return {'data': extracted_data}
+
+    @staticmethod
     def parseWebpage(link_to_webpage: str) -> Dict[str, Any]:
         info(msg='[+]\tStarting parsing webpage process...')
 
@@ -17,7 +22,7 @@ class ParserManager(object):
 
         info(msg='[+]\tThe scraping process has been done!')
 
-        return text_data
+        return ParserManager.parseExtractedTextData(extracted_data=text_data)
 
     @staticmethod
     def parseDocument(path_to_file: str) -> Dict[str, Any]:
@@ -39,12 +44,4 @@ class ParserManager(object):
 
         info(msg='[+]\tThe scraping process has been done!')
 
-        return text_data
-
-    @staticmethod
-    def parseWebPage(link: str) -> Dict[str, Any]:
-        info(msg='[+]\tStarting parsing document process...')
-
-        info(msg='[+]\tThe scraping process has been done!')
-
-        return {}
+        return ParserManager.parseExtractedTextData(extracted_data=text_data)

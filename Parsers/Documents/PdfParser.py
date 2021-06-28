@@ -1,6 +1,5 @@
 import io
 
-from typing import Dict
 from logging import exception
 
 from pdfminer.pdfpage import PDFPage
@@ -36,5 +35,5 @@ class PdfParser(object):
 
         return text
 
-    def extract_text_from_file(self) -> Dict[str, str or Dict]:
-        return {'pdf_file': self.__extract_data()}
+    def extract_text_from_file(self) -> str:
+        return self.__extract_data()
