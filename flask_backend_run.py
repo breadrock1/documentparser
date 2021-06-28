@@ -1,11 +1,17 @@
 import json
+from pathlib import Path
 from logging import exception
 from flask import Flask, request, abort
+from werkzeug.utils import secure_filename
 
 from Parsers.ParserManager import ParserManager
 
 
+UPLOAD_FOLDER = Path() / 'Upload'
+ALLOWED_EXTENSIONS = ['txt', 'pdf', 'doc', 'docx']
+
 app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
 def __getValueByKeyFromJson(json_data: json, key: str) -> str:
@@ -33,7 +39,6 @@ def launchWebPageParsing():
     abort(405)
 
 
-# TODO: Need add ability to load files by POST method request
 @app.route('/documents_parsing', methods=['GET', 'POST'])
 def launchDocumentParsing():
     if request.method == 'GET':
@@ -44,6 +49,37 @@ def launchDocumentParsing():
         file_path = __getValueByKeyFromJson(json_data=json_data, key='file_path')
 
         return ParserManager.parseDocument(path_to_file=file_path)
+
+    abort(405)
+
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+
+
+@app.route('/upload_and_analyse_file')
+def uploadFile():
+    if request.method == 'GET':
+        return '''
+            <!doctype html>
+            <title>Upload new File</title>
+            <h1>Upload new File</h1>
+            <form action="" method=post enctype=multipart/form-data>
+                <p><input type=file name=file>
+                <input type=submit value=Upload>
+            </form>
+        '''
+
+    if request.method == 'POST':
+        file = request.files['file']
+
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file_path = UPLOAD_FOLDER.joinpath(filename)
+            file.save(file_path)
+
+            return ParserManager.parseDocument(path_to_file=file_path)
 
     abort(405)
 
