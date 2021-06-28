@@ -34,7 +34,7 @@ def launchWebPageParsing():
         json_data = request.get_json()
         link = __getValueByKeyFromJson(json_data=json_data, key='link')
 
-        return ParserManager.parseWebPage(link=link)
+        return ParserManager.parseWebpage(link_to_webpage=link)
 
     abort(405)
 
