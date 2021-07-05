@@ -7,7 +7,7 @@ from pdfminer.converter import TextConverter
 from pdfminer.pdfinterp import PDFPageInterpreter
 from pdfminer.pdfinterp import PDFResourceManager
 
-from Main.Extractor.Documents import Extractor
+from Main.Extractor.Documents.Extractor import Extractor
 
 
 class PdfExtractor(Extractor):
