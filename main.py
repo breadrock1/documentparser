@@ -3,7 +3,7 @@ from typing import Dict
 from pathlib import Path
 from argparse import ArgumentParser, Namespace
 
-from Parsers.ParserManager import ParserManager
+from Main.ParserManager import ParserManager
 
 
 def __writeOutResults(output_dir: str, data: Dict) -> None:

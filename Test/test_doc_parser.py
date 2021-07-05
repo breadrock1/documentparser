@@ -1,5 +1,5 @@
 from pathlib import Path
-from Parsers.Documents.DocParser import DocParser
+from Main.Documents.DocParser import DocParser
 
 
 def test_doc_parser():

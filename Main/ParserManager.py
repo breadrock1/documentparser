@@ -2,9 +2,9 @@ from pathlib import Path
 from typing import Any, Dict
 from logging import info, warning
 
-from Parsers.Documents.DocParser import DocParser
-from Parsers.Documents.PdfParser import PdfParser
-from Parsers.WebPages.WebPageParser import WebPageParser
+from Main.Documents.DocParser import DocParser
+from Main.Documents.PdfParser import PdfParser
+from Main.WebPages.WebPageParser import WebPageParser
 
 
 class ParserManager(object):

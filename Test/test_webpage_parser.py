@@ -1,6 +1,6 @@
 from typing import Dict, Any
 
-from Parsers.WebPages.WebPageParser import WebPageParser
+from Main.WebPages.WebPageParser import WebPageParser
 
 
 def __test_webpage(url: str) -> Dict[str, Any]:

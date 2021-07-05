@@ -4,7 +4,7 @@ from logging import exception
 from flask import Flask, request, abort
 from werkzeug.utils import secure_filename
 
-from Parsers.ParserManager import ParserManager
+from Main.ParserManager import ParserManager
 
 
 UPLOAD_FOLDER = Path() / 'Upload'
