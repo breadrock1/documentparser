@@ -2,6 +2,7 @@ from pathlib import Path
 from typing import Any, Dict
 from logging import info, warning
 
+from Main.Parser.Parser import Parser
 from Main.Documents.DocParser import DocParser
 from Main.Documents.PdfParser import PdfParser
 from Main.WebPages.WebPageParser import WebPageParser
@@ -10,8 +11,9 @@ from Main.WebPages.WebPageParser import WebPageParser
 class ParserManager(object):
     @staticmethod
     def parseExtractedTextData(extracted_data: str) -> Dict[str, Any]:
-        # TODO: realize this method
-        return {'data': extracted_data}
+        parser = Parser()
+
+        return parser.parse(extracted_data)
 
     @staticmethod
     def parseWebpage(link_to_webpage: str) -> Dict[str, Any]:
