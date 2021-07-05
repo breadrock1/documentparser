@@ -3,9 +3,9 @@ from typing import Any, Dict
 from logging import info, warning
 
 from Main.Parser.Parser import Parser
-from Main.Documents.DocParser import DocParser
-from Main.Documents.PdfParser import PdfParser
-from Main.WebPages.WebPageParser import WebPageParser
+from Main.Extractor.Documents import DocExtractor
+from Main.Extractor.Documents import PdfExtractor
+from Main.Extractor.WebPages.WebPageExtractor import WebPageExtractor
 
 
 class ParserManager(object):
@@ -19,7 +19,7 @@ class ParserManager(object):
     def parseWebpage(link_to_webpage: str) -> Dict[str, Any]:
         info(msg='[+]\tStarting parsing webpage process...')
 
-        webPageParser = WebPageParser(url_address=link_to_webpage)
+        webPageParser = WebPageExtractor(url_address=link_to_webpage)
         text_data = webPageParser.extract_text_from_webpage()
 
         info(msg='[+]\tThe scraping process has been done!')
@@ -33,11 +33,11 @@ class ParserManager(object):
         extension = Path(path_to_file).suffix
 
         if extension == ".pdf":
-            pdfParser = PdfParser(file_path=path_to_file)
+            pdfParser = PdfExtractor(file_path=path_to_file)
             text_data = pdfParser.extract_text_from_file()
 
         elif extension == ".doc" or extension == ".docx":
-            docParser = DocParser(file_path=path_to_file)
+            docParser = DocExtractor(file_path=path_to_file)
             text_data = docParser.extract_text_from_file()
 
         else:

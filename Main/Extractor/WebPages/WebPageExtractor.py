@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 from logging import exception
 
 
-class WebPageParser(object):
+class WebPageExtractor(object):
     def __init__(self, url_address: str):
         self.url_address = url_address
 

@@ -1,10 +1,10 @@
 from typing import Dict, Any
 
-from Main.WebPages.WebPageParser import WebPageParser
+from Main.Extractor.WebPages.WebPageExtractor import WebPageExtractor
 
 
 def __test_webpage(url: str) -> Dict[str, Any]:
-    webpageParser = WebPageParser(url_address=url)
+    webpageParser = WebPageExtractor(url_address=url)
     content_data = webpageParser.extract_text_from_webpage()
 
     return content_data

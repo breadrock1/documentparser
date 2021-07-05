@@ -1,11 +1,14 @@
 import docx2txt
 
-from typing import Dict
 from logging import exception
 
+from Main.Extractor.Documents import Extractor
 
-class DocParser(object):
+
+class DocExtractor(Extractor):
     def __init__(self, file_path: str):
+        super().__init__()
+
         self.file_path = file_path
 
     def __extract_data(self) -> str:

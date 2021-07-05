@@ -7,9 +7,13 @@ from pdfminer.converter import TextConverter
 from pdfminer.pdfinterp import PDFPageInterpreter
 from pdfminer.pdfinterp import PDFResourceManager
 
+from Main.Extractor.Documents import Extractor
 
-class PdfParser(object):
+
+class PdfExtractor(Extractor):
     def __init__(self, file_path: str):
+        super().__init__()
+
         self.file_path = file_path
 
     def __extract_data(self) -> str:
