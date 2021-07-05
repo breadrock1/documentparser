@@ -20,7 +20,7 @@ class ParserManager(object):
         info(msg='[+]\tStarting parsing webpage process...')
 
         webPageExtractor = WebPageExtractor(address=link_to_webpage)
-        text_data = webPageExtractor.extract_text_from_webpage()
+        text_data = webPageExtractor.extract_text_from_file()
 
         info(msg='[+]\tThe scraping process has been done!')
 
