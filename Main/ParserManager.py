@@ -3,8 +3,8 @@ from typing import Any, Dict
 from logging import info, warning
 
 from Main.Parser.Parser import Parser
-from Main.Extractor.Documents import DocExtractor
-from Main.Extractor.Documents import PdfExtractor
+from Main.Extractor.Documents.DocExtractor import DocExtractor
+from Main.Extractor.Documents.PdfExtractor import PdfExtractor
 from Main.Extractor.WebPages.WebPageExtractor import WebPageExtractor
 
 
@@ -13,14 +13,14 @@ class ParserManager(object):
     def parseExtractedTextData(extracted_data: str) -> Dict[str, Any]:
         parser = Parser()
 
-        return parser.parse(extracted_data)
+        return parser.parse(text_data=extracted_data)
 
     @staticmethod
     def parseWebpage(link_to_webpage: str) -> Dict[str, Any]:
         info(msg='[+]\tStarting parsing webpage process...')
 
-        webPageParser = WebPageExtractor(url_address=link_to_webpage)
-        text_data = webPageParser.extract_text_from_webpage()
+        webPageExtractor = WebPageExtractor(url_address=link_to_webpage)
+        text_data = webPageExtractor.extract_text_from_webpage()
 
         info(msg='[+]\tThe scraping process has been done!')
 
@@ -33,12 +33,12 @@ class ParserManager(object):
         extension = Path(path_to_file).suffix
 
         if extension == ".pdf":
-            pdfParser = PdfExtractor(file_path=path_to_file)
-            text_data = pdfParser.extract_text_from_file()
+            pdfExtractor = PdfExtractor(file_path=path_to_file)
+            text_data = pdfExtractor.extract_text_from_file()
 
         elif extension == ".doc" or extension == ".docx":
-            docParser = DocExtractor(file_path=path_to_file)
-            text_data = docParser.extract_text_from_file()
+            docExtractor = DocExtractor(file_path=path_to_file)
+            text_data = docExtractor.extract_text_from_file()
 
         else:
             warning(msg='Unknown file extension. Please check the extension is correct!')
