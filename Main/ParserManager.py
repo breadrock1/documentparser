@@ -19,7 +19,7 @@ class ParserManager(object):
     def parseWebpage(link_to_webpage: str) -> Dict[str, Any]:
         info(msg='[+]\tStarting parsing webpage process...')
 
-        webPageExtractor = WebPageExtractor(url_address=link_to_webpage)
+        webPageExtractor = WebPageExtractor(address=link_to_webpage)
         text_data = webPageExtractor.extract_text_from_webpage()
 
         info(msg='[+]\tThe scraping process has been done!')
@@ -33,11 +33,11 @@ class ParserManager(object):
         extension = Path(path_to_file).suffix
 
         if extension == ".pdf":
-            pdfExtractor = PdfExtractor(file_path=path_to_file)
+            pdfExtractor = PdfExtractor(address=path_to_file)
             text_data = pdfExtractor.extract_text_from_file()
 
         elif extension == ".doc" or extension == ".docx":
-            docExtractor = DocExtractor(file_path=path_to_file)
+            docExtractor = DocExtractor(address=path_to_file)
             text_data = docExtractor.extract_text_from_file()
 
         else:

@@ -1,13 +1,17 @@
 from time import time_ns
-from typing import Dict, Optional
+from typing import Optional
 from requests import get, Response
 from bs4 import BeautifulSoup
 from logging import exception
 
+from Main.Extractor.Documents.Extractor import Extractor
 
-class WebPageExtractor(object):
-    def __init__(self, url_address: str):
-        self.url_address = url_address
+
+class WebPageExtractor(Extractor):
+    def __init__(self, address: str):
+        super().__init__(address=address)
+
+        self.url_address = address
 
     def __write_dom_object_to_file(self, content: Optional[bytes]) -> str:
 
@@ -39,7 +43,7 @@ class WebPageExtractor(object):
 
         return response.content
 
-    def extract_text_from_webpage(self) -> str:
+    def __extract_data(self) -> str:
         response = self.__send_get_request()
         html_file_path = self.__write_dom_object_to_file(content=response)
 
@@ -47,3 +51,6 @@ class WebPageExtractor(object):
         test = ''.join([repr(string) for string in soup.stripped_strings])
 
         return test
+
+    def extract_text_from_file(self) -> str:
+        return self.__extract_data()

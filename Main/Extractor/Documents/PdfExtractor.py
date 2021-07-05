@@ -11,10 +11,10 @@ from Main.Extractor.Documents.Extractor import Extractor
 
 
 class PdfExtractor(Extractor):
-    def __init__(self, file_path: str):
-        super().__init__()
+    def __init__(self, address: str):
+        super().__init__(address=address)
 
-        self.file_path = file_path
+        self.file_path = address
 
     def __extract_data(self) -> str:
         fake_file_handle = io.StringIO()

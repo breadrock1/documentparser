@@ -1,6 +1,6 @@
 class Extractor(object):
-    def __init__(self, file_path: str):
-        self.file_path = file_path
+    def __init__(self, address: str):
+        self.file_path = address
 
     def __extract_data(self) -> str:
         return ''

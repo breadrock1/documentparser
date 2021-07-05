@@ -4,7 +4,7 @@ from Main.Extractor.WebPages.WebPageExtractor import WebPageExtractor
 
 
 def __test_webpage(url: str) -> Dict[str, Any]:
-    webpageParser = WebPageExtractor(url_address=url)
+    webpageParser = WebPageExtractor(address=url)
     content_data = webpageParser.extract_text_from_webpage()
 
     return content_data
