@@ -4,7 +4,7 @@ from requests import get, Response
 from bs4 import BeautifulSoup
 from logging import exception
 
-from Main.Extractor.Documents.Extractor import Extractor
+from Main.Extractor.Extractor import Extractor
 
 
 class WebPageExtractor(Extractor):

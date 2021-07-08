@@ -2,7 +2,7 @@ import docx2txt
 
 from logging import exception
 
-from Main.Extractor.Documents.Extractor import Extractor
+from Main.Extractor.Extractor import Extractor
 
 
 class DocExtractor(Extractor):
