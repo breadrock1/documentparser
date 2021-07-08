@@ -13,7 +13,7 @@ class ParserManager(object):
     def parseExtractedTextData(extracted_data: str) -> Dict[str, Any]:
         parser = Parser()
 
-        return parser.parse(text_data=extracted_data)
+        return parser.parse(extracted_data=extracted_data)
 
     @staticmethod
     def parseWebpage(link_to_webpage: str) -> Dict[str, Any]:
